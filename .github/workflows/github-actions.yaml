@@ -29,7 +29,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: streamlit-app
           IMAGE_TAG: ${{ github.sha }}
-          username: AWS-JaeminJung          
+          Username: AWS-JaeminJung          
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
