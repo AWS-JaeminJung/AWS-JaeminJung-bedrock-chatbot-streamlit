@@ -9,7 +9,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with: 
-          repository: AWS-JaeminJung-bedrock-chatbot-streamlit
+          repository: AWS-JaeminJung/AWS-JaeminJung-bedrock-chatbot-streamlit
           ref: main
           token: ${{ secrets.ACTION_TOKEN }}
 
