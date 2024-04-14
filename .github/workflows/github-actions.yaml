@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with: 
+          repository: AWS-JaeminJung-bedrock-chatbot-streamlit
+          ref: main
+          token: ${{ secrets.ACTION_TOKEN }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -25,9 +29,6 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: streamlit-app
           IMAGE_TAG: ${{ github.sha }}
-          username: AWS-JaeminJung
-          password: ${{ secrets.ACTION_TOKEN }}
-
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
