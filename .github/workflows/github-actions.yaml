@@ -6,7 +6,7 @@ env:
   ECR_REPOSITORY: AWS-JaeminJung/AWS-JaeminJung-bedrock-chatbot-streamlit
   ECS_CLUSTER: streamlit-app-cluster
   ECS_SERVICE: streamlit-app-service
-  ECS_TASK_DEFINITION: streamlit-app-task-definition
+  ECS_TASK_DEFINITION: streamlit-app-task-definition.json
   CONTAINER_NAME: streamlit-app
 
 jobs:
