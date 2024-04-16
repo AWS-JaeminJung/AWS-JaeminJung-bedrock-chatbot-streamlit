@@ -3,7 +3,8 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 
 env:
-  ECR_REPOSITORY: AWS-JaeminJung/AWS-JaeminJung-bedrock-chatbot-streamlit
+  GITHUB_REPOSITORY: AWS-JaeminJung/AWS-JaeminJung-bedrock-chatbot-streamlit
+  ECR_REPOSITORY: 031273582910.dkr.ecr.us-west-2.amazonaws.com/streamlit-app
   ECS_CLUSTER: streamlit-app-cluster
   ECS_SERVICE: streamlit-app-service
   ECS_TASK_DEFINITION: streamlit-app-task-definition.json
@@ -17,7 +18,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with: 
-          repository: AWS-JaeminJung/AWS-JaeminJung-bedrock-chatbot-streamlit
+          repository: ${{ env.GITHUB_REPOSITORY }}
           ref: main
           token: ${{ secrets.ACTION_TOKEN }}
 
@@ -48,6 +49,7 @@ jobs:
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Download Task Definition Template
+        
         run: |
           aws ecs describe-task-definition \
             --task-definition streamlit-app-task-definition \
@@ -60,7 +62,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: streamlit-app
-          image: 031273582910.dkr.ecr.us-west-2.amazonaws.com/streamlit-app:${{ github.sha }}
+          image: ${{ env.ECR_REPOSITORY }}:${{ github.sha }}
           #image: ${{ steps.build-push.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
