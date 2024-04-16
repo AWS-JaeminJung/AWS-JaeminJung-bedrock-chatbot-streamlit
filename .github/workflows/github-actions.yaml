@@ -36,8 +36,10 @@ jobs:
         #name: Build, tag, and push docker image to Amazon ECR
         id: build-push
         env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REGISTRY: 031273582910.dkr.ecr.us-west-2.amazonaws.com
+          #REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: streamlit-app
+          #REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
           Username: AWS-JaeminJung          
         run: |
