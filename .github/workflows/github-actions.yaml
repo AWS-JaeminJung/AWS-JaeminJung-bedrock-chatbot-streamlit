@@ -60,7 +60,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: streamlit-app
-          image: 031273582910.dkr.ecr.us-west-2.amazonaws.com/streamlit-app:${{ steps.build-push.outputs.github.sha }}
+          image: 031273582910.dkr.ecr.us-west-2.amazonaws.com/streamlit-app:${{ github.sha }}
           #image: ${{ steps.build-push.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
