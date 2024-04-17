@@ -4,3 +4,5 @@ langchain
 boto3
 python-dotenv
 pdfplumber
+config
+role_prompt
