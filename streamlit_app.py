@@ -53,7 +53,7 @@ def init_conversationchain():
                     'max_tokens_to_sample': MAX_TOKENS}
 
     llm = Bedrock(
-        client=bedrock_runtime
+        client=bedrock_runtime,
         model_id="anthropic.claude-3-sonnet-20240229-v1:0",
         model_kwargs=model_kwargs
     )
