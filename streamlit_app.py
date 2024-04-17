@@ -5,6 +5,8 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts.prompt import PromptTemplate
 from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
 
+import boto3
+
 DEFAULT_CLAUDE_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
 
 Current conversation:
@@ -24,6 +26,11 @@ INIT_MESSAGE = {"role": "assistant", "content": "Hi! I'm Claude on Bedrock!. How
 st.set_page_config(page_title='🤖 Chat with Bedrock', layout='wide')
 st.title("🤖 Chat with Bedrock")
 
+bedrock_runtime = boto3.client(
+    service_name="bedrock-runtime",
+    region_name="us-west-2",
+)
+
 # Sidebar info
 with st.sidebar:
     st.markdown("## Inference Parameters")
@@ -39,8 +46,6 @@ with st.sidebar:
                               max_value=10, value=3, step=1)
 
 # Initialize the ConversationChain
-
-
 def init_conversationchain():
     model_kwargs = {'temperature': TEMPERATURE,
                     'top_p': TOP_P,
@@ -48,7 +53,8 @@ def init_conversationchain():
                     'max_tokens_to_sample': MAX_TOKENS}
 
     llm = Bedrock(
-        model_id="anthropic.claude-v2",
+        client=bedrock_runtime
+        model_id="anthropic.claude-3-sonnet-20240229-v1:0",
         model_kwargs=model_kwargs
     )
 
