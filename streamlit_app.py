@@ -11,7 +11,7 @@ from langchain.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from langchain_community.utilities import SerpAPIWrapper
 from PIL import Image, UnidentifiedImageError
-import pdfplumber
+# import pdfplumber
 
 from config import config
 from models import ChatModel
