@@ -5,6 +5,9 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts.prompt import PromptTemplate
 from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
 
+from langchain_community.chat_models import BedrockChat
+from langchain_core.messages import HumanMessage
+
 import boto3
 
 DEFAULT_CLAUDE_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
@@ -18,8 +21,6 @@ CLAUDE_PROMPT = PromptTemplate(
     input_variables=["history", "input"], template=DEFAULT_CLAUDE_TEMPLATE)
 
 INIT_MESSAGE = {"role": "assistant", "content": "Hi! I'm Claude on Bedrock!. How may I help you?"}
-
-
 
 
 # Set Streamlit page configuration
@@ -54,7 +55,8 @@ def init_conversationchain():
 
     llm = Bedrock(
         client=bedrock_runtime,
-        model_id="anthropic.claude-3-sonnet-20240229-v1:0",
+        model_id="anthropic.claude-v2.1",
+        #model_id="anthropic.claude-3-sonnet-20240229-v1:0",
         model_kwargs=model_kwargs
     )
 
