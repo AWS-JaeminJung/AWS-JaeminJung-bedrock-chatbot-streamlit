@@ -17,9 +17,6 @@ from config import config
 from models import ChatModel
 from role_prompt import role_prompt
 
-#from dotenv import load_dotenv
-#load_dotenv()
-
 INIT_MESSAGE = {
     "role": "assistant",
     "content": "Hi! I'm your AI Bot on Bedrock. How may I help you?",
