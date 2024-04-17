@@ -8,8 +8,6 @@ from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
 from langchain_community.chat_models import BedrockChat
 from langchain_core.messages import HumanMessage
 
-import boto3
-
 DEFAULT_CLAUDE_TEMPLATE = """The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
 
 Current conversation:
@@ -27,10 +25,7 @@ INIT_MESSAGE = {"role": "assistant", "content": "Hi! I'm Claude on Bedrock!. How
 st.set_page_config(page_title='🤖 Chat with Bedrock', layout='wide')
 st.title("🤖 Chat with Bedrock")
 
-bedrock_runtime = boto3.client(
-    service_name="bedrock-runtime",
-    region_name="us-west-2",
-)
+load_dotenv()
 
 # Sidebar info
 with st.sidebar:
@@ -54,8 +49,9 @@ def init_conversationchain():
                     'max_tokens_to_sample': MAX_TOKENS}
 
     llm = Bedrock(
+        region_name="us-west-2",
         client=bedrock_runtime,
-        model_id="anthropic.claude-v2.1",
+        model_id="anthropic.claude-3-sonnet-20240229-v1:0",
         #model_id="anthropic.claude-3-sonnet-20240229-v1:0",
         model_kwargs=model_kwargs
     )
